@@ -1,4 +1,4 @@
-package main
+package solution5
 
 import "strings"
 

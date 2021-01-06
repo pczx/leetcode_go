@@ -1,4 +1,4 @@
-package main
+package solution4
 
 func findNumberIn2DArray(matrix [][]int, target int) bool {
 	if matrix == nil || len(matrix) == 0 || len(matrix[0]) == 0 {

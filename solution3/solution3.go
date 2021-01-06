@@ -1,4 +1,4 @@
-package main
+package solution3
 
 func findRepeatNumber(nums []int) int {
 	if nums == nil || len(nums) == 0 {
