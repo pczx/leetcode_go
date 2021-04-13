@@ -1,15 +1,29 @@
-package solution5
+package main
 
-import "strings"
+import "fmt"
 
 func replaceSpace(s string) string {
-	var sb strings.Builder
-	for _, v := range s {
-		if v == ' ' {
-			sb.WriteString("%20")
-		} else {
-			sb.WriteRune(v)
+	spaces := 0
+	for _, c := range s {
+		if c == ' ' {
+			spaces++
 		}
 	}
-	return sb.String()
+
+	ans := make([]rune, len(s) + 2 * spaces)
+	for i := 0; i < len(s); i++ {
+		if s[i] == ' ' {
+			ans[i] = '%'
+			ans[i + 1] = '2'
+			ans[i + 2] = '0'
+			i = i + 3
+		} else {
+			ans[i] = rune(s[i])
+		}
+	}
+	return string(ans)
+}
+
+func main() {
+	fmt.Println(replaceSpace("We are happy."))
 }

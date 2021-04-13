@@ -1,26 +1,27 @@
 package solution13
 
 func movingCount(m int, n int, k int) int {
-	visited := make([][]bool, m)
+	vis := make([][]bool, m)
 	for i := 0; i < m; i++ {
-		visited[i] = make([]bool, n)
+		vis[i] = make([]bool, n)
 	}
-	return dfs(0, 0, m, n, k, visited)
+	return dfs(0, 0, m, n, k, vis)
 }
 
-func dfs(i, j, m, n, k int, visited [][]bool) int {
-	count := 0
-	if i >= 0 && i < m && j >= 0 && j < n && getDigitSum(i)+getDigitSum(j) <= k && !visited[i][j] {
-		visited[i][j] = true
-		count = 1 + dfs(i, j-1, m, n, k, visited) +
-			dfs(i, j+1, m, n, k, visited) +
-			dfs(i-1, j, m, n, k, visited) +
-			dfs(i+1, j, m, n, k, visited)
+func dfs(i, j, m, n, k int, vis [][]bool) int {
+	if i < 0 || i >= m || j < 0 || j >= n || getDigit(i)+getDigit(j) > k || vis[i][j] {
+		return 0
+	}
+	count := 1
+	vis[i][j] = true
+	ds := [][]int{{0, -1}, {0, 1}, {1, 0}, {-1, 0}}
+	for t := 0; t < 4; t++ {
+		count += dfs(i+ds[t][0], j+ds[t][1], m, n, k, vis)
 	}
 	return count
 }
 
-func getDigitSum(n int) int {
+func getDigit(n int) int {
 	sum := 0
 	for n > 0 {
 		sum += n % 10

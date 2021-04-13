@@ -10,20 +10,20 @@ func cuttingRope(n int) int {
 	if n == 3 {
 		return 2
 	}
-	products := make([]int, n+1)
-	products[0] = 0
-	products[1] = 1
-	products[2] = 2
-	products[3] = 3
+	dp := make([]int, n+1)
+	dp[0] = 1
+	dp[1] = 1
+	dp[2] = 2
+	dp[3] = 3
 	for i := 4; i <= n; i++ {
 		max := 0
-		for j := 1; j <= i/2; j++ {
-			product := products[j] * products[i-j]
+		for j := 1; j <= i / 2; j++ {
+			product := dp[j] * dp[i-j]
 			if max < product {
 				max = product
 			}
 		}
-		products[i] = max
+		dp[i] = max
 	}
-	return products[n]
+	return dp[n]
 }

@@ -2,40 +2,40 @@ package solution40
 
 import "container/heap"
 
-type MaxHeap []int
+type maxHeap []int
 
-func (h *MaxHeap) Len() int {
+func (h *maxHeap) Len() int {
 	return len(*h)
 }
 
-func (h *MaxHeap) Less(i, j int) bool {
+func (h *maxHeap) Less(i, j int) bool {
 	return (*h)[i] > (*h)[j]
 }
 
-func (h *MaxHeap) Swap(i, j int) {
+func (h *maxHeap) Swap(i, j int) {
 	(*h)[i], (*h)[j] = (*h)[j], (*h)[i]
 }
 
-func (h *MaxHeap) Push(x interface{}) {
+func (h *maxHeap) Push(x interface{}) {
 	*h = append(*h, x.(int))
 }
 
-func (h *MaxHeap) Pop() (v interface{}) {
+func (h *maxHeap) Pop() (v interface{}) {
 	v, *h = (*h)[h.Len()-1], (*h)[:h.Len()-1]
 	return
 }
 
-func (h *MaxHeap) Peek() interface{} {
+func (h *maxHeap) Peek() interface{} {
 	return (*h)[0]
 }
 
 func getLeastNumbers(arr []int, k int) []int {
-	var res []int
+	var ans []int
 	n := len(arr)
 	if n == 0 || k <= 0 || n < k {
-		return res
+		return ans
 	}
-	pq := &MaxHeap{}
+	pq := &maxHeap{}
 	heap.Init(pq)
 	for i := 0; i < k; i++ {
 		heap.Push(pq, arr[i])
@@ -48,9 +48,9 @@ func getLeastNumbers(arr []int, k int) []int {
 	}
 
 	for i := 0; i < k; i++ {
-		res = append(res, heap.Pop(pq).(int))
+		ans = append(ans, heap.Pop(pq).(int))
 	}
-	return res
+	return ans
 }
 
 // func getLeastNumbers(arr []int, k int) []int {

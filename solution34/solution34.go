@@ -23,9 +23,7 @@ func pathSum(root *TreeNode, sum int) [][]int {
 		path = append(path, root.Val)
 
 		if root.Left == nil && root.Right == nil && currSum == sum {
-			temp := make([]int, len(path))
-			copy(temp, path)
-			paths = append(paths, temp)
+			paths = append(paths, append([]int{}, path...))
 		}
 
 		if root.Left != nil {

@@ -1,34 +1,34 @@
-package solution17
+package main
 
 import (
+	"fmt"
 	"strconv"
 )
 
 func printNumbers(n int) []int {
-	res := []int{}
+	ans := []int{}
 	if n <= 0 {
-		return res
+		return ans
 	}
-
 	str := make([]byte, n)
-	for i := 0; i < 10; i++ {
-		str[0] = byte(i + int('0'))
-		dfs(str, n, 0, &res)
+	var dfs func(int)
+	dfs = func(index int) {
+		if index == n {
+			v, _ := strconv.Atoi(string(str[:n]))
+			if v != 0 {
+				ans = append(ans, v)
+			}
+			return
+		}
+		for i := 0; i < 10; i++ {
+			str[index] = byte(i + '0')
+			dfs(index + 1)
+		}
 	}
-	return res
+	dfs(0)
+	return ans
 }
 
-func dfs(str []byte, n, index int, res *[]int) {
-	if index == n-1 {
-		v, _ := strconv.Atoi(string(str))
-		if v != 0 {
-			*res = append(*res, v)
-		}
-		return
-	}
-
-	for i := 0; i < 10; i++ {
-		str[index+1] = byte(i + int('0'))
-		dfs(str, n, index+1, res)
-	}
+func main () {
+	fmt.Println(printNumbers(4))
 }
